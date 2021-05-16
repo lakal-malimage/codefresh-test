@@ -39,6 +39,6 @@ steps:
     namespace: default
     service: test-app
     candidate:
-      image: ${{build_step}}
+      image: '${{MyPushStep}}'
       registry: lakal
     file_path:: ./kubernetes/test_deploy.yaml
