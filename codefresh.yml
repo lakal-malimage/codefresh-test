@@ -19,7 +19,7 @@ steps:
     working_directory: ./
     tag: '${{CF_SHORT_REVISION}}'
     dockerfile: Dockerfile
-    disable_push: true
+    disable_push: false
   MyPushStep:
     title: Pushing to DockerHub Registry
     type: push

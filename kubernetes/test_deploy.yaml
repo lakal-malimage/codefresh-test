@@ -22,7 +22,7 @@ spec:
         app: test-app
     spec:
       containers:
-      - image: lakal/test-app
+      - image: nignx
         imagePullPolicy: Always
         name: test-app
         resources: {}
