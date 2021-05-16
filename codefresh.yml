@@ -46,4 +46,4 @@ steps:
     cluster:  test-cluster
     # desired namespace
     namespace: default
-    file_path:: ./kubernetes/test_deploy.yaml
+    file_path: ./kubernetes/test_deploy.yaml
