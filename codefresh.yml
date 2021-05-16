@@ -41,4 +41,4 @@ steps:
     candidate:
       image: lakal/test-app:${{CF_SHORT_REVISION}}
       registry: lakal
-      file_path:: ./kubernetes/test_deploy.yaml
+    file_path:: ./kubernetes/test_deploy.yaml
