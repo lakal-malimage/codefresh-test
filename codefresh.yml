@@ -39,9 +39,6 @@ steps:
     namespace: default
     service: test-app
     candidate:
-      # The image that will replace the original deployment image
-      # The image that been build using Build step
       image: lakal/test-app:${{CF_SHORT_REVISION}}
-      # The registry that the user's Kubernetes cluster can pull the image from
-      # Codefresh will generate (if not found) secret and add it to the deployment so the Kubernetes master can pull it
       registry: lakal
+      Image Pull Secret: my-docker-secret
