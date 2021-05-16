@@ -39,6 +39,6 @@ steps:
     namespace: default
     service: test-app
     candidate:
-      image: lakal/test-app:${{CF_SHORT_REVISION}}
+      image: ${{build_step}}
       registry: lakal
     file_path:: ./kubernetes/test_deploy.yaml
