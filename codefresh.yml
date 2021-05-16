@@ -25,12 +25,14 @@ steps:
     title: Pushing to DockerHub Registry
     type: push
     stage: upload
-    tag: '${{CF_SHORT_REVISION}}'
+    tag: ${{CF_SHORT_REVISION}}
     candidate: '${{MyAppDockerImage}}'
     image_name: lakal/test-app #Change kkapelon to your dockerhub username
     registry: lakal # Name of your integration as was defined in the Registry screen
   UpdateImage:
     title: update image tag
+    type: freestyle
+    image: busybox
     stage: updatetag
     commands:
       - sed -i 's/lakal\/test-app/lakal\/test-app-${{CF_SHORT_REVISION}}/g' ./kubernetes/test_deploy.yaml
