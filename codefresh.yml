@@ -1,0 +1,46 @@
+version: '1.0'
+stages:
+  - checkout
+  - buildimage
+  - upload
+  - deploy
+steps:
+  main_clone:
+    title: Cloning main repository...
+    type: git-clone
+    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+    revision: '${{CF_REVISION}}'
+    stage: checkout
+  MyAppDockerImage:
+    title: Building Docker Image
+    type: build
+    stage: buildimage
+    image_name: test-app
+    working_directory: ./
+    tag: '${{CF_SHORT_REVISION}}'
+    dockerfile: Dockerfile
+    disable_push: true
+  MyPushStep:
+    title: Pushing to DockerHub Registry
+    type: push
+    stage: upload
+    tag: '${{CF_SHORT_REVISION}}'
+    candidate: '${{MyAppDockerImage}}'
+    image_name: lakal/test-app #Change kkapelon to your dockerhub username
+    registry: dockerhub # Name of your integration as was defined in the Registry screen
+  DeployToMyCluster:
+    title: deploying to cluster
+    type: deploy
+    stage: deploy
+    kind: kubernetes
+    ## cluster name as the shown in account's integration page
+    cluster:  test-cluster
+    # desired namespace
+    namespace: default    
+    candidate:
+      # The image that will replace the original deployment image
+      # The image that been build using Build step
+      image: lakal/test-app:${{CF_SHORT_REVISION}}
+      # The registry that the user's Kubernetes cluster can pull the image from
+      # Codefresh will generate (if not found) secret and add it to the deployment so the Kubernetes master can pull it
+      registry: dockerhub
