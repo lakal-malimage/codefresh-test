@@ -27,7 +27,7 @@ steps:
     tag: '${{CF_SHORT_REVISION}}'
     candidate: '${{MyAppDockerImage}}'
     image_name: lakal/test-app #Change kkapelon to your dockerhub username
-    registry: dockerhub # Name of your integration as was defined in the Registry screen
+    registry: lakal # Name of your integration as was defined in the Registry screen
   DeployToMyCluster:
     title: deploying to cluster
     type: deploy
@@ -36,7 +36,8 @@ steps:
     ## cluster name as the shown in account's integration page
     cluster:  test-cluster
     # desired namespace
-    namespace: default    
+    namespace: default
+    service: test-app
     candidate:
       # The image that will replace the original deployment image
       # The image that been build using Build step
