@@ -21,6 +21,8 @@ spec:
       labels:
         app: test-app
     spec:
+      imagePullSecrets:
+        - name: my-docker-secret
       containers:
       - image: lakal/test-app
         imagePullPolicy: Always
