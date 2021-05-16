@@ -3,6 +3,7 @@ stages:
   - checkout
   - buildimage
   - upload
+  - updatetag
   - deploy
 steps:
   main_clone:
@@ -28,6 +29,12 @@ steps:
     candidate: '${{MyAppDockerImage}}'
     image_name: lakal/test-app #Change kkapelon to your dockerhub username
     registry: lakal # Name of your integration as was defined in the Registry screen
+  UpdateImage:
+    title: update image tag
+    stage: updatetag
+    commands:
+      - sed -i 's/lakal\/test-app/lakal\/test-app-${{CF_SHORT_REVISION}}/g' ./kubernetes/test_deploy.yaml
+      - cat ./kubernetes/test_deploy.yaml
   DeployToMyCluster:
     title: deploying to cluster
     type: deploy
@@ -37,8 +44,4 @@ steps:
     cluster:  test-cluster
     # desired namespace
     namespace: default
-    service: test-app
-    candidate:
-      image: '${{MyAppDockerImage}}'
-      registry: lakal
     file_path:: ./kubernetes/test_deploy.yaml
