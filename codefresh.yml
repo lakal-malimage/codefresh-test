@@ -35,7 +35,7 @@ steps:
     image: busybox
     stage: updatetag
     commands:
-      - sed -i 's/lakal\/test-app/lakal\/test-app-${{CF_SHORT_REVISION}}/g' ./kubernetes/test_deploy.yaml
+      - sed -i 's/lakal\/test-app/lakal\/test-app:${{CF_SHORT_REVISION}}/g' ./kubernetes/test_deploy.yaml
       - cat ./kubernetes/test_deploy.yaml
   DeployToMyCluster:
     title: deploying to cluster
